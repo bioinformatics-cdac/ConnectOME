@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>BC Pred</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" ">
+      <a class="navbar-brand" href="#">Breast Cancer Survival Prediction</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+
+    <form method="post" enctype="multipart/form-data">
+      <div class="container-fluid" style="display: flex; margin-top:10mm;
+      justify-content: space-evenly; width:97%; height: 100px; background-color: #100517;">
+          <div class="cellcontainer" 
+            style="margin: 15px;
+            background-color: #100517;
+             color: #00FAD8;">
+                <p>Upload Gene Expression data</p>
+                <input type="file" name="Gene_expression">
+          </div>
+          <div class="cellcontainer" 
+            style="margin: 15px; background-color: #100517; color: #00FAD8;">
+                <p>Upload miRNA Expression data</p>
+                <input type="file" name="miRNA_expression">
+          </div>
+          <div class="cellcontainer" style="margin: 15px;background-color: #100517; color: #00FAD8;">
+                <p>Upload DNA Methylation data</p>
+                <input type="file" name="DNA_Meth">
+          </div>
+          <!--<div class="cellcontainer" style="margin: 15px;background-color: #33475b; color: rosybrown;">
+            <input type="submit" value="Predict">
+          </div>-->
+      </div>
+      <div class="cellcontainer" style="display:flex;margin-bottom:10mm;background-color: #100517">
+        <button type="submit" onclick="showResult()" style="margin:auto">Predict</button>
+      </div>  
+    </form>
+
+
+    
+
+    <!-- Selected feature-->
+    <div class="container-fluid" style="display: flex;
+    flex-wrap: wrap;justify-content: space-around;margin-top: 20mm;
+     width:100%; height: 150px">
+       
+      <div class="cellcontainer" 
+          style="height: 200px;width:30%;margin-bottom:10mm;margin-right:5mm ; overflow-y:scroll;
+          background-color: #100517;
+          color: #EDFA00;">
+          <h2>Gene expression selcted feature</h2>
+              {% for gene in gene_exp_feature_name%}
+              <p>{{ gene }}</p>
+            {% endfor %}
+      </div> 
+       
+      <div class="cellcontainer" 
+          style="height: 200px;width:30%;margin-bottom:10mm;margin-right:5mm; overflow-y:scroll;
+          background-color: #100517;
+          color: #EDFA00;">
+          <h2>miRNA expression selcted feature</h2>
+              {% for gene in miRNA_exp_feature_name%}
+              <p>{{ gene }}</p>
+            {% endfor %}
+      </div> 
+       
+      <div class="cellcontainer" 
+          style="height: 200px;width:30%;margin-bottom:10mm;  overflow-y:scroll;
+          background-color: #100517;
+          color: #EDFA00;">
+          <h2>DNA Methylation selcted feature</h2>
+              {% for gene in DNA_Meth_feature_name%}
+              <p>{{ gene }}</p>
+            {% endfor %}
+      </div> 
+      
+      <div class="cellcontainer" 
+          style="height: 200px;width:30%;margin-right:5mm;overflow-y:scroll;
+          background-color: #100517;
+          color: #EDFA00;">
+          <h2>Gene expression (PLS-DA) selcted feature</h2> 
+              {% for gene in Gene_exp_pls_feature_name%}
+              <p>{{ gene }}</p>
+            {% endfor %}
+      </div> 
+       
+      <div class="cellcontainer" 
+          style="height: 200px;width:30%;margin-right:5mm; overflow-y:scroll;
+          background-color: #100517;
+          color: #EDFA00;">
+          <h2>miRNA expression (PLS-DA) selcted feature</h2>
+              {% for gene in miRNA_exp_pls_feature_name%}
+              <p>{{ gene }}</p>
+            {% endfor %}
+      </div>       
+      
+      <div class="cellcontainer" 
+          style="height: 200px;width:30%;  overflow-y:scroll;
+          background-color: #100517;
+          color: #EDFA00;">
+          <h2>DNA Methylation (PLS-DA) selcted feature</h2> 
+              {% for gene in DNA_Meth_pls_feature_name%}
+              <p>{{ gene }}</p>
+            {% endfor %}
+      </div> 
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    --> 
+    
+  </body>
+  <style>
+    body {
+      background-color:#100517;
+      color: #00FAD8
+    }
+  </style>
+</html>
